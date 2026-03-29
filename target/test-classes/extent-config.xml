@@ -3,13 +3,13 @@
     <configuration>
 
         <!-- ===== GLOBAL SETTINGS ===== -->
-        <theme>dark</theme>
+        <theme>Light</theme>
         <encoding>UTF-8</encoding>
         <protocol>https</protocol>
 
         <!-- ===== TITLES ===== -->
-        <documentTitle>Automation Execution Dashboard</documentTitle>
-        <reportName>🚀 Selenium Automation – Practice Framework</reportName>
+        <documentTitle>🚀 Automation Dashboard</documentTitle>
+        <reportName>✨ Advanced Selenium Execution Report</reportName>
 
         <!-- ===== CHART POSITION ===== -->
         <testViewChartLocation>top</testViewChartLocation>
@@ -19,13 +19,63 @@
 <![CDATA[
 $(document).ready(function () {
 
-    // Smooth entrance animation
-    $('.test').css({ 'animation': 'slideUp 0.6s ease-in-out' });
+    // ===== THEME BUTTON =====
+    const toggleBtn = $('<button id="themeToggle">🌙</button>');
+    $('.nav-wrapper').append(toggleBtn);
 
-    // Visual pass/fail border indicator
-    $('.status.pass').closest('.test').css({ 'border-left': '6px solid #2ecc71' });
-    $('.status.fail').closest('.test').css({ 'border-left': '6px solid #e74c3c' });
-    $('.status.skip').closest('.test').css({ 'border-left': '6px solid #f1c40f' });
+    // ===== LOAD SAVED THEME =====
+    if(localStorage.getItem("theme") === "dark"){
+        $('body').addClass('dark-mode');
+        toggleBtn.text('☀');
+    }
+
+    toggleBtn.click(function () {
+        $('body').toggleClass('dark-mode');
+
+        if ($('body').hasClass('dark-mode')) {
+            localStorage.setItem("theme","dark");
+            toggleBtn.text('☀');
+        } else {
+            localStorage.setItem("theme","light");
+            toggleBtn.text('🌙');
+        }
+    });
+
+    // ===== ANIMATION =====
+    $('.test').css({ 'animation': 'fadeInUp 0.5s ease-in-out' });
+
+    // ===== STATUS BORDER =====
+    $('.status.pass').closest('.test').css({ 'border-left': '6px solid #00ff9c' });
+    $('.status.fail').closest('.test').css({ 'border-left': '6px solid #ff4d4d' });
+    $('.status.skip').closest('.test').css({ 'border-left': '6px solid #ffd633' });
+
+    // ===== LIVE SEARCH FILTER =====
+    $('input[type="search"]').on('keyup', function () {
+        let value = $(this).val().toLowerCase();
+        $('.test').filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+    });
+
+    // ===== COUNTER =====
+    let passCount = $('.status.pass').length;
+    let failCount = $('.status.fail').length;
+    let skipCount = $('.status.skip').length;
+
+    $('.nav-wrapper').append(
+        `<span style="margin-left:20px;color:#00ff9c;">✔ ${passCount}</span>
+         <span style="margin-left:10px;color:#ff4d4d;">✘ ${failCount}</span>
+         <span style="margin-left:10px;color:#ffd633;">⚠ ${skipCount}</span>`
+    );
+
+    // ===== EXECUTION TIME =====
+    let now = new Date();
+    $('.nav-wrapper').append(
+        `<span style="margin-left:20px;font-size:12px;">🕒 ${now.toLocaleString()}</span>`
+    );
+
+    // ===== AUTO EXPAND FAILED =====
+    $('.status.fail').closest('.test').find('.collapsible-body').show();
 
 });
 ]]>
@@ -35,57 +85,104 @@ $(document).ready(function () {
         <styles>
 <![CDATA[
 
-/* ===== FONT ===== */
+/* ===== GLOBAL ===== */
 body {
-    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+}
+
+/* ===== DARK MODE ===== */
+.dark-mode {
+    background: #0f172a !important;
+    color: #e2e8f0 !important;
+}
+
+.dark-mode .test {
+    background: #1e293b !important;
+}
+
+.dark-mode .nav-wrapper {
+    background: linear-gradient(90deg, #020617, #1e293b);
 }
 
 /* ===== HEADER ===== */
 .nav-wrapper {
-    background: linear-gradient(90deg, #141e30, #243b55);
-    box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    padding: 0 20px;
 }
 
-/* ===== LOGO TEXT ===== */
-.brand-logo {
-    font-size: 20px !important;
-    font-weight: 600;
-    letter-spacing: 0.6px;
+/* ===== THEME BUTTON ===== */
+#themeToggle {
+    float: right;
+    margin-top: 10px;
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
-/* ===== TEST CARD ===== */
+/* ===== TEST CARDS ===== */
 .test {
-    border-radius: 12px;
-    margin-bottom: 16px;
-    box-shadow: 0 8px 22px rgba(0,0,0,0.4);
-    transition: transform 0.25s ease;
+    border-radius: 14px;
+    margin-bottom: 18px;
+    padding: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
 }
 
 .test:hover {
-    transform: scale(1.01);
+    transform: translateY(-3px);
 }
 
 /* ===== STATUS COLORS ===== */
-.status.pass { color: #2ecc71 !important; font-weight: 600; }
-.status.fail { color: #e74c3c !important; font-weight: 600; }
-.status.skip { color: #f1c40f !important; font-weight: 600; }
+.status.pass { color: #00c853 !important; font-weight: 600; }
+.status.fail { color: #ff1744 !important; font-weight: 600; }
+.status.skip { color: #ff9100 !important; font-weight: 600; }
 
-/* ===== LOG STEPS ===== */
-.log.pass { background: rgba(46,204,113,0.15); }
-.log.fail { background: rgba(231,76,60,0.15); }
-.log.skip { background: rgba(241,196,15,0.15); }
+/* ===== BACKGROUND GRADIENT ===== */
+.test.pass {
+    background: linear-gradient(135deg, rgba(0,200,83,0.15), transparent);
+}
+
+.test.fail {
+    background: linear-gradient(135deg, rgba(255,23,68,0.15), transparent);
+}
+
+/* ===== LOG COLORS ===== */
+.log.pass { background: rgba(0,200,83,0.15); }
+.log.fail { background: rgba(255,23,68,0.15); }
+.log.skip { background: rgba(255,145,0,0.15); }
+
+/* ===== IMAGE ZOOM ===== */
+img {
+    transition: transform 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.8);
+    z-index: 999;
+}
 
 /* ===== ANIMATION ===== */
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(15px); }
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== DASHBOARD CARDS ===== */
+.card-panel {
+    border-radius: 12px !important;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white !important;
 }
 
 /* ===== FOOTER ===== */
 .footer {
     text-align: center;
     font-size: 12px;
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 ]]>
