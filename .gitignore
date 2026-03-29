@@ -1,4 +1,3 @@
-/target/
-/test-output/
-/test-output-thread/
-/test-reports/
+test-output/
+test-output-thread/
+test-reports/
