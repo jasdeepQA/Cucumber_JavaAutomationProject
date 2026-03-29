@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extentreports>
+    <configuration>
+
+        <!-- ===== GLOBAL SETTINGS ===== -->
+        <theme>dark</theme>
+        <encoding>UTF-8</encoding>
+        <protocol>https</protocol>
+
+        <!-- ===== TITLES ===== -->
+        <documentTitle>Automation Execution Dashboard</documentTitle>
+        <reportName>🚀 Selenium Automation – Practice Framework</reportName>
+
+        <!-- ===== CHART POSITION ===== -->
+        <testViewChartLocation>top</testViewChartLocation>
+
+        <!-- ===== CUSTOM JAVASCRIPT ===== -->
+        <scripts>
+<![CDATA[
+$(document).ready(function () {
+
+    // Smooth entrance animation
+    $('.test').css({ 'animation': 'slideUp 0.6s ease-in-out' });
+
+    // Visual pass/fail border indicator
+    $('.status.pass').closest('.test').css({ 'border-left': '6px solid #2ecc71' });
+    $('.status.fail').closest('.test').css({ 'border-left': '6px solid #e74c3c' });
+    $('.status.skip').closest('.test').css({ 'border-left': '6px solid #f1c40f' });
+
+});
+]]>
+        </scripts>
+
+        <!-- ===== CUSTOM STYLES ===== -->
+        <styles>
+<![CDATA[
+
+/* ===== FONT ===== */
+body {
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+/* ===== HEADER ===== */
+.nav-wrapper {
+    background: linear-gradient(90deg, #141e30, #243b55);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+}
+
+/* ===== LOGO TEXT ===== */
+.brand-logo {
+    font-size: 20px !important;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+}
+
+/* ===== TEST CARD ===== */
+.test {
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.4);
+    transition: transform 0.25s ease;
+}
+
+.test:hover {
+    transform: scale(1.01);
+}
+
+/* ===== STATUS COLORS ===== */
+.status.pass { color: #2ecc71 !important; font-weight: 600; }
+.status.fail { color: #e74c3c !important; font-weight: 600; }
+.status.skip { color: #f1c40f !important; font-weight: 600; }
+
+/* ===== LOG STEPS ===== */
+.log.pass { background: rgba(46,204,113,0.15); }
+.log.fail { background: rgba(231,76,60,0.15); }
+.log.skip { background: rgba(241,196,15,0.15); }
+
+/* ===== ANIMATION ===== */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+]]>
+        </styles>
+
+    </configuration>
+</extentreports>

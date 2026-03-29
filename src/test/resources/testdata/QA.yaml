@@ -1,0 +1,62 @@
+app:
+  url: "https://automationexercise.com/"
+
+   
+register_user:
+  name: "Test User"
+  email: "testuser987654@example.com"
+  title: "Mr."
+  password: "securePass123"
+  dob:
+    day: 15
+    month: 07
+    year: 1995
+  newsletter: true
+  offers: true
+  address:
+    first_name: "Test"
+    last_name: "User"
+    company: "Test Corp"
+    address1: "123 Street"
+    address2: "Suite 4"
+    country: "United States"
+    state: "California"
+    city: "Los Angeles"
+    zipcode: "90001"
+    mobile_number: "+1234567890"
+
+login_valid_user:
+  email: "jasdeeps426@yopmail.com"
+  password: "Test@1234"
+  
+existing_email_data:
+  email: "jasdeeps426@yopmail.com"
+  name: "jasdeep"
+
+login_invalid_user:
+  email: "wronguser@example.com"
+  password: "wrongPass"
+
+contact_us:
+  name: "Test User"
+  email: "testuser@example.com"
+  subject: "Test Subject"
+  message: "This is a test message."
+  file_path: "/path/to/upload/testfile.txt"
+
+search_product:
+  query: "Blue Top"
+
+existing_user_registration:
+  name: "Existing User"
+  email: "testuser@example.com"  # Already used email
+
+products:
+  - name: "Blue Top"
+    category: "Women > Tops"
+    price: "Rs. 500"
+    availability: "In Stock"
+    condition: "New"
+    brand: "Polo"
+
+   
